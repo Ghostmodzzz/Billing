@@ -1,9 +1,10 @@
 import datetime
 import requests
 from models import Paycheck, Bill
+from config import Config  # Secure API key handling
 
-# Your OpenRouter API Key
-OPENROUTER_API_KEY = "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"
+# ✅ Securely pulled from Render's environment
+OPENROUTER_API_KEY = Config.OPENROUTER_API_KEY
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "gpt-4o-mini"
 
