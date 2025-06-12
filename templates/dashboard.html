@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | GhostModzz BillPlanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="main-bg">
+    <div class="navbar">
+        <h1>💸 BillPlanner</h1>
+        <div>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Welcome, {{ user_email }}</h2>
+
+        <form method="POST" action="{{ url_for('add_bill') }}">
+            <input type="text" name="bill_name" placeholder="Bill Name" required>
+            <input type="number" step="0.01" name="bill_amount" placeholder="Amount" required>
+            <input type="date" name="due_date" required>
+            <select name="recurrence">
+                <option value="one-time">One-Time</option>
+                <option value="monthly">Monthly</option>
+                <option value="bi-weekly">Bi-Weekly</option>
+            </select>
+            <button type="submit">Add Bill</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('add_paycheck') }}">
+            <input type="number" step="0.01" name="pay_amount" placeholder="Paycheck Amount" required>
+            <input type="date" name="pay_date" required>
+            <select name="recurrence">
+                <option value="one-time">One-Time</option>
+                <option value="bi-weekly">Bi-Weekly</option>
+            </select>
+            <button type="submit">Add Paycheck</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('run_plan') }}">
+            <input type="text" name="goal" placeholder="Any financial goals?" style="width: 50%;">
+            <button type="submit">Run Plan</button>
+        </form>
+
+        {% if plan_output %}
+        <div class="plan-box">
+            <h3>📊 AI Budget Plan:</h3>
+            <pre>{{ plan_output }}</pre>
+        </div>
+        {% endif %}
+
+        <div class="list-section">
+            <h3>📅 Upcoming Bills</h3>
+            <ul>
+                {% for bill in bills %}
+                <li>{{ bill.name }} – ${{ "%.2f"|format(bill.amount) }} due {{ bill.due_date.strftime('%Y-%m-%d') }} ({{ bill.recurrence }})</li>
+                {% endfor %}
+            </ul>
+
+            <h3>💵 Paychecks</h3>
+            <ul>
+                {% for p in paychecks %}
+                <li>${{ "%.2f"|format(p.amount) }} on {{ p.date.strftime('%Y-%m-%d') }} ({{ p.recurrence }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if breakdown %}
+        <div class="bar-chart">
+            <h3>💡 Budget Breakdown</h3>
+            <canvas id="chart"></canvas>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        {% if breakdown %}
+        const ctx = document.getElementById('chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Bills", "Savings", "Gas", "Food", "Extra"],
+                datasets: [{
+                    label: 'Budget Allocation',
+                    data: [{{ breakdown.Bills }}, {{ breakdown.Savings }}, {{ breakdown.Gas }}, {{ breakdown.Food }}, {{ breakdown.Extra }}],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Amount ($)' }
+                    }
+                }
+            }
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

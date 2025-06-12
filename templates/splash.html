@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BillPlanner - Loading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(145deg, #2a003f, #0e0e1a);
+            color: #fff;
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            padding-top: 15%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #a855f7;
+        }
+        .spinner {
+            border: 8px solid #444;
+            border-top: 8px solid #a855f7;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin: 30px auto;
+            animation: spin 1.4s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to GhostModzz BillPlanner</h1>
+    <div class="spinner"></div>
+    <p>Loading secure planner interface...</p>
+    <script>
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 2500);
+    </script>
+</body>
+</html>
