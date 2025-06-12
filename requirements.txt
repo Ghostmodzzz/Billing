@@ -5,4 +5,4 @@ Flask_Login
 Flask_WTF
 email_validator
 requests
-gunicorn
+gunicorn==21.2.0
