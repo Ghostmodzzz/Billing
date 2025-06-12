@@ -8,7 +8,9 @@ from models import db, User, Bill, Paycheck
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'your-secret-key'
+from config import Config
+app.config.from_object(Config)
+
 db.init_app(app)
 
 @app.before_first_request
