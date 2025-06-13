@@ -5,9 +5,9 @@ services:
     plan: free
     pythonVersion: 3.11
     buildCommand: pip3 install -r requirements.txt
-    startCommand: python3 -m gunicorn app:app
+    startCommand: gunicorn app:app
     envVars:
       - key: SECRET_KEY
-        value: e5a2e5c59d95c62d0d193e72cf938342153b41955e6bc73340a11b3cc0e9eb82
+        value: e5a2e5c59d95c620d0d193e72cf938342153b41955e6bc73340a11b3cc0e9eb82
       - key: OPENROUTER_API_KEY
         value: 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
