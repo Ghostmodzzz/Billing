@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>BillPlanner - Loading</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BillPlanner">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icon-192.png') }}">
+
     <style>
         body {
             background: linear-gradient(145deg, #2a003f, #0e0e1a);
@@ -30,6 +37,15 @@
             100% { transform: rotate(360deg); }
         }
     </style>
+
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/static/service-worker.js')
+                .then(reg => console.log("Service Worker registered:", reg.scope))
+                .catch(err => console.error("Service Worker registration failed:", err));
+        }
+    </script>
 </head>
 <body>
     <h1>Welcome to GhostModzz BillPlanner</h1>
