@@ -1,11 +1,13 @@
 services:
   - type: web
-    name: billplanner-app
-    runtime: python
+    name: billplanner
+    env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
+    pythonVersion: 3.11
     envVars:
-      - key: OPENROUTER_API_KEY
-        sync: false
       - key: SECRET_KEY
-        sync: false
+        value: your-secret-key-here
+      - key: OPENROUTER_API_KEY
+        value: your-openrouter-api-key
