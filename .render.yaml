@@ -3,9 +3,9 @@ services:
     name: billplanner
     env: python
     plan: free
-    runtime: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    pythonVersion: 3.11
+    buildCommand: pip3 install -r requirements.txt
+    startCommand: python3 -m gunicorn app:app
     envVars:
       - key: SECRET_KEY
         value: e5a2e5c59d95c62d0d193e72cf938342153b41955e6bc73340a11b3cc0e9eb82
