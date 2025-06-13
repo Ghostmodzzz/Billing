@@ -3,7 +3,7 @@ services:
     name: billplanner-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: python3 app.py
     envVars:
       - key: OPENROUTER_API_KEY
         sync: false
