@@ -3,11 +3,11 @@ services:
     name: billplanner
     env: python
     plan: free
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
-    pythonVersion: 3.11
     envVars:
       - key: SECRET_KEY
-        value: your-secret-key-here
-      - key: e5a2e5c59d95c62d0d193e72cf938342153b41955e6bc73340a11b3cc0e9eb82
+        value: e5a2e5c59d95c62d0d193e72cf938342153b41955e6bc73340a11b3cc0e9eb82
+      - key: OPENROUTER_API_KEY
         value: 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
